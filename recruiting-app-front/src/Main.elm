@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Html exposing (Html, div, text, program)
+import Views.Header as Header exposing (..)
 
 -- モデル
 type alias Model =
@@ -18,7 +19,10 @@ type Msg
 view : Model -> Html Msg
 view model =
     div []
-        [ text model ]
+        [ 
+            Header.header
+            , text model
+        ]
 
 -- 更新
 update : Msg -> Model -> ( Model, Cmd Msg )
