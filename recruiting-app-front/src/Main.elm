@@ -1,27 +1,40 @@
 module Main exposing (..)
 
 import Html exposing (Html, div, text, program)
+import Navigation exposing (Location, program)
+
 import Views.Header as Header exposing (..)
+import Routes
 
 -- モデル
-type alias Model =
-    String
+type alias Model = 
+    {
+        page: Maybe Routes.Route,
+        value: String
+    }
 
-init : ( Model, Cmd Msg )
-init =
-    ( "Hello", Cmd.none )
+init : Navigation.Location -> ( Model, Cmd Msg )
+init location =
+    ( 
+        {
+            page = Nothing
+            , value = "test"
+        }
+        , Cmd.none 
+    )
 
 -- メッセージ
 type Msg
     = NoOp
+    | UrlChange Navigation.Location
 
 -- ビュー
 view : Model -> Html Msg
-view model =
+view { page, value } =
     div []
         [ 
             Header.header
-            , text model
+            , text value
         ]
 
 -- 更新
@@ -29,6 +42,8 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         NoOp ->
+            ( model, Cmd.none )
+        UrlChange location ->
             ( model, Cmd.none )
 
 -- サブスクリプション(購読)
@@ -39,7 +54,7 @@ subscriptions model =
 -- MAIN
 main : Program Never Model Msg
 main =
-    program
+    Navigation.program UrlChange
         { init = init
         , view = view
         , update = update
