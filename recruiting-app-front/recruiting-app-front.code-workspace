@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"elm.formatCommand": "./node_modules/.bin/elm-format",
+		"elm.formatOnSave": true,
+		"elm.makeCommand": "./node_modules/.bin/elm-make"
+	}
+}
